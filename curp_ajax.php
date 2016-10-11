@@ -33,7 +33,7 @@ include_once("functions.php");
 
 
 <?php
-
+echo '<script>alert ("Entre");</script>';
 $q = $_GET['q'];
 
 $con = mysqli_connect('localhost','root','configurar$do4','cambios_all');
@@ -46,15 +46,15 @@ mysqli_select_db($con,"cambios_all");
 
 if($_SESSION['sub_tipo'] == 0)
 {
-	if ($_SESSION['tipo'] == 2)		//!!!!!!!!!!!!!!!!!!!!
+	if ($_SESSION['tipo'] == 2)		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	{
 		$sql = "SELECT
 					*
 				FROM
 					t_alumnos
 				WHERE
-					app LIKE '".$q."%' AND
-					created_by = 'ADMINCSES'
+					id_alum LIKE '".$q."%' AND
+					created_by = '".$_SESSION['user']."'
 				ORDER BY
 					id_alum
 				";
@@ -66,25 +66,25 @@ if($_SESSION['sub_tipo'] == 0)
 				FROM
 					t_alumnos
 				WHERE
-					app LIKE '".$q."%'
+					id_alum LIKE '".$q."%'
 				ORDER BY
 					id_alum
 				";
 	}
 }
-else
+else 
 {
 	$sql = "SELECT
 				*
 			FROM
-				t_alumnos LEFT JOIN t_escuelas ON id_cct = cct_ou
+				t_alumnos LEFT JOIN t_escuelas ON cct_ou = id_cct
 			WHERE
-				app LIKE '".$q."%' AND
+				id_alum LIKE '".$q."%' AND
 				sub_tipo_e = ".$_SESSION['sub_tipo']."
 			ORDER BY
 				id_alum
 			";
-}	
+}
 
 $result = mysqli_query($con,$sql);
 //echo "<br>".$q."<br>";

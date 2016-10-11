@@ -31,6 +31,8 @@ if ($_SESSION['aut'] == 0){	_frog('index.php');}
 </script>
 </head>
 
+
+
 <div align="center">
 <form id="header" name="header" method="POST">
 <div class="header" align="center"></div>

@@ -46,15 +46,15 @@ mysqli_select_db($con,"cambios_all");
 
 if($_SESSION['sub_tipo'] == 0)
 {
-	if ($_SESSION['tipo'] == 2)		//!!!!!!!!!!!!!!!!!!!!
+	if ($_SESSION['tipo'] == 2)		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	{
 		$sql = "SELECT
 					*
 				FROM
 					t_alumnos
 				WHERE
-					app LIKE '".$q."%' AND
-					created_by = 'ADMINCSES'
+					cct_ou LIKE '".$q."%' AND
+					created_by = '".$_SESSION['user']."'
 				ORDER BY
 					id_alum
 				";
@@ -66,25 +66,26 @@ if($_SESSION['sub_tipo'] == 0)
 				FROM
 					t_alumnos
 				WHERE
-					app LIKE '".$q."%'
+					cct_ou LIKE '".$q."%'
 				ORDER BY
 					id_alum
 				";
 	}
 }
-else
+else 
 {
 	$sql = "SELECT
 				*
 			FROM
-				t_alumnos LEFT JOIN t_escuelas ON id_cct = cct_ou
+				t_alumnos LEFT JOIN t_escuelas ON cct_ou = id_cct
 			WHERE
-				app LIKE '".$q."%' AND
+				cct_ou LIKE '".$q."%' AND
 				sub_tipo_e = ".$_SESSION['sub_tipo']."
 			ORDER BY
 				id_alum
 			";
-}	
+}
+
 
 $result = mysqli_query($con,$sql);
 //echo "<br>".$q."<br>";
